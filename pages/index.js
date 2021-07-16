@@ -35,7 +35,7 @@ export default function Home() {
           <Box >
             Comunidades
           </Box>
-      </div>
+        </div>
       </MainGrid>
     </>
   )
