@@ -32,7 +32,6 @@ export default function Home() {
     'nivaldoandrade',
     'lidy2374',
     'CaioS-github',
-
   ]
 
   return (

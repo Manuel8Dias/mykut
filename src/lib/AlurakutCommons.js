@@ -346,7 +346,7 @@ const AlurakutLoginScreen = css`
         --commonRadius: 8px;
     }
 
-  .loginScreen {
+    .loginScreen {
         padding: 16px;
         max-width: 1110px;
         display: grid;
