@@ -25,6 +25,9 @@ function ProfileSidebar(props) {
 
 export default function Home() {
   const User = 'Manuel8Dias'
+
+  const comunidades = []
+
   const pessoasFavoritas = [
     'carolinapinheiro',
     'AlexMSMF',
@@ -53,6 +56,7 @@ export default function Home() {
         <div className="profileArea" style={{ gridArea: 'profileArea' }}>
           <ProfileSidebar githubUser={User} />
         </div>
+
         <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
           <Box>
             <h1 className="title">
@@ -60,12 +64,52 @@ export default function Home() {
               <OrkutNostalgicIconSet />
             </h1>
           </Box>
+          <Box>
+            <h2 className="subTitle">O que deseja fazer?</h2>
+            <form onSubmit={ function handleCriarComunidade(e) {
+              e.preventDefault()
+            }}>
+              <div>
+                <input
+                  placeholder="Qual vai ser o nome da comunidade?"
+                  name="title"
+                  aria-label="Qual vai ser o nome da comunidade?"
+                  type="text "
+                />
+              </div>
+
+              <div>
+                <input
+                  placeholder="Coloque uma URl para usar como capa"
+                  name="image"
+                  aria-label="Coloque uma URl para usar como capa" 
+                />
+              </div>
+
+              <button>
+                Criar Comunidade
+              </button>
+            </form>
+          </Box>
         </div>
 
         <div className='profileRelationsArea' style={{gridArea: 'profileRelationsArea'}}>
           <ProfileRelationsBoxWrapper>
+              <ul>
+              {pessoasFavoritas.map((itemAtual) => {
+                  return (
+                    <li>
+                      <a href={`/users/${itemAtual}`} key={itemAtual}>
+                        <img src={`https://github.com/${itemAtual}.png`} />
+                        <span>{itemAtual}</span>
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+          </ProfileRelationsBoxWrapper>
 
-          
+          <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Pessoas da Comunidade ({pessoasFavoritas.length})
             </h2>
