@@ -18,7 +18,21 @@ export default function Home() {
     'AlexMSMF',
     'nunopereira78lx',
     'jennybeka',
-    ''
+    'juunegreiros',
+    'omariosouto',
+    'peas',
+    'rafaballerini',
+    'marcobrunodev',
+    'RStankov',
+    'loiane',
+    'wesbos',
+    'Quenedi',
+    'codingscode',
+    'Motirck',
+    'nivaldoandrade',
+    'lidy2374',
+    'CaioS-github',
+
   ]
 
   return (
