@@ -7,77 +7,81 @@ const v = '1';
 
 
 function Link({ href, children, ...props }) {
-  return (
-    <NextLink href={href} passHref>
-      <a {...props}>
-        {children}
-      </a>
-    </NextLink>
-  )
+    return (
+        <NextLink href={href} passHref>
+        <a {...props}>
+            {children}
+        </a>
+        </NextLink>
+    )
 }
 
 // ================================================================================================================
 // Menu
 // ================================================================================================================
 export function AlurakutMenu({ githubUser }) {
-  const [isMenuOpen, setMenuState] = React.useState(false);
-  return (
-    <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
-      <div className="container">
-        <AlurakutMenu.Logo src={`${BASE_URL}/logo.svg`} />
+    const [isMenuOpen, setMenuState] = React.useState(false)
+    return (
+        <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
+        <div className="container">
+            <AlurakutMenu.Logo src={`${BASE_URL}/logo.svg`} />
 
-        <nav style={{ flex: 1 }}>
-          {[{ name: 'Inicio', slug: '/'}, {name: 'Amigos', slug: '/amigos'}, {name: 'Comunidades', slug: '/comunidades'}].map((menuItem) => (
+            <nav style={{ flex: 1 }}>
+            {[{ name: 'Inicio', slug: '/'}, {name: 'Amigos', slug: '/amigos'}, {name: 'Comunidades', slug: '/comunidades'}].map((menuItem) => (
             <Link key={`key__${menuItem.name.toLocaleLowerCase()}`} href={`${menuItem.slug.toLocaleLowerCase()}`}>
-              {menuItem.name}
+                {menuItem.name}
             </Link>
-          ))}
-        </nav>
+            ))}
+            </nav>
 
-        <nav>
-          <a href={`/logout`}>
-            Sair
-          </a>
-          <div>
-            <input placeholder="Pesquisar no Orkut" />
-          </div>
-        </nav>
+            <nav>
+            <a href={`/logout`}>
+                Sair
+            </a>
+            <div>
+                <input placeholder="Pesquisar no Orkut" />
+            </div>
+            </nav>
 
-        <button onClick={() => setMenuState(!isMenuOpen)}>
-          {isMenuOpen && <img src={`${BASE_URL}/icons/menu-open.svg?v=${v}`} />}
-          {!isMenuOpen && <img src={`${BASE_URL}/icons/menu-closed.svg?v=${v}`} />}
-        </button>
-      </div>
-      <AlurakutMenuProfileSidebar githubUser={githubUser} />
-    </AlurakutMenu.Wrapper>
-  )
+            <button onClick={() => setMenuState(!isMenuOpen)}>
+            {isMenuOpen && <img src={`${BASE_URL}/icons/menu-open.svg?v=${v}`} />}
+            {!isMenuOpen && <img src={`${BASE_URL}/icons/menu-closed.svg?v=${v}`} />}
+            </button>
+        </div>
+        <AlurakutMenuProfileSidebar githubUser={githubUser} />
+        </AlurakutMenu.Wrapper>
+    )
 }
 AlurakutMenu.Wrapper = styled.header`
-  width: 100%;
-  background-color: #308BC5;
-  .alurakutMenuProfileSidebar {
-    background: white;
-    position: fixed;
-    z-index: 100;
-    padding: 46px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 48px;
-    transition: .3s;
-    pointer-events: ${({ isMenuOpen }) => isMenuOpen ? 'all' : 'none'};
-    opacity: ${({ isMenuOpen }) => isMenuOpen ? '1' : '0'};
-    transform: ${({ isMenuOpen }) => isMenuOpen ? 'translateY(0)' : 'translateY(calc(-100% - 48px))'};
+    width: 100%;
+    background-color: #308BC5;
+    .alurakutMenuProfileSidebar {
+        background: white;
+        position: fixed;
+        z-index: 100;
+        padding: 46px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 48px;
+        transition: .3s;
+        pointer-events: ${({ isMenuOpen }) => isMenuOpen ? 'all' : 'none'};
+        opacity: ${({ isMenuOpen }) => isMenuOpen ? '1' : '0'};
+        transform: ${({ isMenuOpen }) => isMenuOpen ? 'translateY(0)' : 'translateY(calc(-100% - 48px)) '};
+
     @media(min-width: 860px) {
         display: none;
     }
+
     > div {
         max-width: 400px;
         margin: auto;
     }
+
     a {
         font-size: 18px;
     }
+
     .boxLink {
         font-size: 18px;
         color: #2E7BB4;
@@ -85,6 +89,7 @@ AlurakutMenu.Wrapper = styled.header`
         text-decoration: none;
         font-weight: 800;
     }
+    
     hr {
         margin-top: 12px;
         margin-bottom: 8px;
