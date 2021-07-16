@@ -3,7 +3,6 @@ import Box from '../src/components/Box'
 import { AlurakutMenu } from '../src/lib/AlurakutCommons'
 
 function ProfileSidebar(props) {
-  console.log(props);
   return (
     <Box>
       <img src={`https://github.com/${props.githubUser}.png`} style={{ borderRadius: '8px' }} />
