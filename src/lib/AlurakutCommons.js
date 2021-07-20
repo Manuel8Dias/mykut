@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 import NextLink from 'next/link';
 import Box from '../components/Box/'
+import ProfileSidebar from '../components/ProfileSideBar'
 
 const BASE_URL = 'http://alurakut.vercel.app/';
 const v = '1';
@@ -173,26 +174,7 @@ AlurakutMenu.Logo = styled.img`
 
 function AlurakutMenuProfileSidebar({ githubUser }) {
     
-    function ProfileSidebar(props) {
-
-        return (
-            <Box>
-                <img src={`https://github.com/${props.githubUser}.png`} style={{ borderRadius: '8px' }} />
-        
-                <hr />
-        
-                <p>
-                    <a className="boxLink" href={`https://github.com/${props.githubUser}`}>
-                        @{props.githubUser}
-                    </a>
-                </p>
-        
-                <hr />
-        
-                <AlurakutProfileSidebarMenuDefault />
-            </Box>
-        )
-    }
+    <ProfileSidebar githubUser={User} />
 
     return (
         <div className="alurakutMenuProfileSidebar">

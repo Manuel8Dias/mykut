@@ -5,26 +5,7 @@ import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations'
 
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
-
-function ProfileSidebar(props) {
-  return (
-    <Box>
-      <img src={`https://github.com/${props.githubUser}.png`} style={{ borderRadius: '8px' }} />
-
-      <hr />
-
-      <p>
-        <a className="boxLink" href={`https://github.com/${props.githubUser}`}>
-          @{props.githubUser}
-        </a>
-      </p>
-
-      <hr />
-
-      <AlurakutProfileSidebarMenuDefault />
-    </Box>
-  )
-}
+import ProfileSidebar from '../src/components/ProfileSideBar'
 
 export default function Home() {
   const User = 'Manuel8Dias'
