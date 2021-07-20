@@ -1,8 +1,10 @@
 import React from 'react'
-import MainGrid from '../src/components/MainGrid'
-import Box from '../src/components/Box'
+
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations'
+
+import MainGrid from '../src/components/MainGrid'
+import Box from '../src/components/Box'
 
 function ProfileSidebar(props) {
   return (
@@ -27,7 +29,11 @@ function ProfileSidebar(props) {
 export default function Home() {
   const User = 'Manuel8Dias'
 
-  const [comunidades, setComunidades] = React.useState(['Alurakut'])
+  const [comunidades, setComunidades] = React.useState([{
+    id: '1237298462367',
+    title: 'Eu odeio acordar cedo',
+    image: 'http://alurakut.vercel.app/capa-comunidade-01.jpg'
+  }])
 
   const pessoasFavoritas = [
     'carolinapinheiro',
@@ -69,8 +75,14 @@ export default function Home() {
             <h2 className="subTitle">O que deseja fazer?</h2>
             <form onSubmit={ function handleCriarComunidade(e) {
               e.preventDefault()
+              const dadosDoForm = new FormData(e.target)
 
-              const comunidadesActualizadas = [...comunidades, 'Alura Stars']
+              const comunidade = {
+                id: new Date().toISOString(),
+                title: dadosDoForm.get('title'),
+                image: dadosDoForm.get('image'),
+              }
+              const comunidadesActualizadas = [...comunidades, comunidade]
 
               setComunidades(comunidadesActualizadas)
             }}>
@@ -107,7 +119,7 @@ export default function Home() {
             <ul>
             {pessoasFavoritas.map((itemAtual) => {
                 return (
-                  <li>
+                  <li key={itemAtual}>
                     <a href={`/users/${itemAtual}`} key={itemAtual}>
                       <img src={`https://github.com/${itemAtual}.png`} />
                       <span>{itemAtual}</span>
@@ -122,10 +134,10 @@ export default function Home() {
               <ul>
               {comunidades.map((itemAtual) => {
                   return (
-                    <li>
-                      <a href={`/users/${itemAtual}`} key={itemAtual}>
-                        <img src={`http://placehold.it/300x300`} />
-                        <span>{itemAtual}</span>
+                    <li key={itemAtual.id}>
+                      <a href={`/users/${itemAtual.title}`}>
+                        <img src={itemAtual.image} />
+                        <span>{itemAtual.title }</span>
                       </a>
                     </li>
                   )
