@@ -112,6 +112,9 @@ export default function Home() {
           </ProfileRelationsBoxWrapper>
 
           <ProfileRelationsBoxWrapper>
+          <h2 className="smallTitle">
+              Comunidades ({comunidades.length})
+            </h2>
               <ul>
               {comunidades.map((itemAtual) => {
                   return (
