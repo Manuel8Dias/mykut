@@ -7,6 +7,28 @@ import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import ProfileSidebar from '../src/components/ProfileSideBar'
 
+function ProfileRelationsBox(props) {
+  return (
+    <ProfileRelationsBoxWrapper>
+      <h2 className="smallTitle">
+      {props.title} ({props.items.length})
+      </h2>
+      <ul>
+      {/* {seguidores.map((itemAtual) => {
+          return (
+            <li key={itemAtual.id}>
+              <a href={`https://github.com/${itemAtual}.png`}>
+                <img src={itemAtual.image} />
+                <span>{itemAtual.title }</span>
+              </a>
+            </li>
+          )
+        })} */}
+      </ul>
+    </ProfileRelationsBoxWrapper>
+  )
+}
+
 export default function Home() {
   const User = 'Manuel8Dias'
 
@@ -36,6 +58,24 @@ export default function Home() {
     'lidy2374',
     'CaioS-github',
   ]
+
+  const [seguidores, setSeguidores] = React.useState([])
+
+  React.useEffect(function() {
+    fetch('https://api.github.com/users/Manuel8Dias/followers')
+      .then(function(respostaDoServidor) {
+        if(respostaDoServidor.ok) {
+          return respostaDoServidor.json()
+          }
+          throw new Error('Aconteceu um problema ' + respostaDoServidor.status)
+      })
+      .then(function(respostaCompleta) {
+        setSeguidores(respostaCompleta)
+      })
+      .catch(function(erro) {
+        console.error(erro)
+      })
+  }, [])
 
   return (
     <>
@@ -92,6 +132,12 @@ export default function Home() {
         </div>
 
         <div className='profileRelationsArea' style={{gridArea: 'profileRelationsArea'}}>
+        
+        <ProfileRelationsBox
+          title="Seguidores"
+          items={seguidores}
+        />
+
         <ProfileRelationsBoxWrapper>
             <h2 className="smallTitle">
               Pessoas da Comunidade ({pessoasFavoritas.length})
