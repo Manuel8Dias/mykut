@@ -72,31 +72,36 @@ export default function Home() {
         console.error(erro)
       })
 
-      // API GraphQL
+      // API GraphQL - POST
       fetch('https://graphql.datocms.com/', {
-        method: 'POST',
-        headers: {
-          'Authorization': 'edfd18b449581075edcb17b79a303d',
-          'Content-Type': 'application/json',
-          'Accept': 'application/json' 
-        },
-        body: JSON.stringify({ "query": `query {
-          allCommunities {
-            title
-            id
-            imageurl
-            creatorSlug
-          }
-        }`})
-      })
-      .then((response) => response.json())
-      .then((respostaCompleta) => {
-        const comunidadesVindasDoDato = respostaCompleta.data.allCommunities
-        console.log(comunidadesVindasDoDato)
-        setComunidades(comunidadesVindasDoDato)
-      })
+      method: 'POST',
+      headers: {
+        'Authorization': '7f7590695431ea76f84616a4b4d32d',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ "query": `query {
+        allCommunities {
+          id 
+          title
+          imageUrl
+          creatorSlug
+        }
+      }`})
+    })
+    .then((response) => response.json()) // Pega o retorno do response.json() e já retorna
+    .then((respostaCompleta) => {
+      const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
+      console.log(comunidadesVindasDoDato)
+      setComunidades(comunidadesVindasDoDato)
+    })
+    // .then(function (response) {
+    //   return response.json()
+    // })
 
   }, [])
+
+  console.log('seguidores antes do return', seguidores);
 
   return (
     <>
@@ -120,13 +125,26 @@ export default function Home() {
               const dadosDoForm = new FormData(e.target)
 
               const comunidade = {
-                id: new Date().toISOString(),
                 title: dadosDoForm.get('title'),
-                image: dadosDoForm.get('image'),
+                imageUrl: dadosDoForm.get('image'),
+                creatorSlug: User,
               }
-              const comunidadesActualizadas = [...comunidades, comunidade]
 
-              setComunidades(comunidadesActualizadas)
+              fetch('/api/comunidades', {
+                method: 'POST',
+                headers: {
+                  'Content-Type':'application/json',
+                }, 
+                body: JSON.stringify(comunidade)
+              })
+              .then(async (response) => {
+                const dados = await response.json()
+                console.log(dados)
+              })
+
+              // const comunidadesActualizadas = [...comunidades, comunidade]
+
+              // setComunidades(comunidadesActualizadas)
             }}>
               <div>
                 <input
