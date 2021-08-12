@@ -74,34 +74,31 @@ export default function Home() {
 
       // API GraphQL - POST
       fetch('https://graphql.datocms.com/', {
-      method: 'POST',
-      headers: {
-        'Authorization': '7f7590695431ea76f84616a4b4d32d',
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({ "query": `query {
-        allCommunities {
-          id 
-          title
-          imageUrl
-          creatorSlug
-        }
-      }`})
-    })
-    .then((response) => response.json()) // Pega o retorno do response.json() e já retorna
-    .then((respostaCompleta) => {
-      const comunidadesVindasDoDato = respostaCompleta.data.allCommunities;
-      console.log(comunidadesVindasDoDato)
-      setComunidades(comunidadesVindasDoDato)
-    })
-    // .then(function (response) {
-    //   return response.json()
-    // })
+        method: 'POST',
+        headers: {
+          'Authorization': 'edfd18b449581075edcb17b79a303d',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json' 
+        },
+        body: JSON.stringify({ "query": `
+          query {
+            allCommunities {
+              title
+              id
+              imageurl
+              creatorSlug
+            }
+          }
+        `})
+      })
+      .then((response) => response.json())
+      .then((respostaCompleta) => {
+        const comunidadesVindasDoDato = respostaCompleta.data.allCommunities
+        console.log(comunidadesVindasDoDato)
+        setComunidades(comunidadesVindasDoDato)
+      })
 
   }, [])
-
-  console.log('seguidores antes do return', seguidores);
 
   return (
     <>
@@ -120,32 +117,36 @@ export default function Home() {
           </Box>
           <Box>
             <h2 className="subTitle">O que deseja fazer?</h2>
-            <form onSubmit={ function handleCriarComunidade(e) {
-              e.preventDefault()
-              const dadosDoForm = new FormData(e.target)
+            
+            <form onSubmit={function handleCriaComunidade(e) {
+                e.preventDefault();
+                const dadosDoForm = new FormData(e.target);
 
-              const comunidade = {
-                title: dadosDoForm.get('title'),
-                imageUrl: dadosDoForm.get('image'),
-                creatorSlug: User,
-              }
+                console.log('Campo: ', dadosDoForm.get('title'));
+                console.log('Campo: ', dadosDoForm.get('image'));
 
-              fetch('/api/comunidades', {
-                method: 'POST',
-                headers: {
-                  'Content-Type':'application/json',
-                }, 
-                body: JSON.stringify(comunidade)
-              })
-              .then(async (response) => {
-                const dados = await response.json()
-                console.log(dados)
-              })
+                const comunidade = {
+                  title: dadosDoForm.get('title'),
+                  imageUrl: dadosDoForm.get('image'),
+                  creatorSlug: User,
+                }
 
-              // const comunidadesActualizadas = [...comunidades, comunidade]
-
-              // setComunidades(comunidadesActualizadas)
+                fetch('/api/comunidades', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(comunidade)
+                })
+                .then(async (response) => {
+                  const dados = await response.json()
+                  console.log(dados.registoCriado)
+                  const comunidade = dados.registoCriado
+                  const comunidadesAtualizadas = [...comunidades, comunidade]
+                  setComunidades(comunidadesAtualizadas)
+                })
             }}>
+
               <div>
                 <input
                   placeholder="Qual vai ser o nome da comunidade?"
